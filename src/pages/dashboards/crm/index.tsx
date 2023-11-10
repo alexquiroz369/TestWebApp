@@ -9,7 +9,6 @@ import CardStatisticsVertical from 'src/@core/components/card-statistics/card-st
 
 // ** Styled Component Import
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
-
 // ** Demo Components Imports
 import CrmAward from 'src/views/dashboards/crm/CrmAward'
 import CrmTable from 'src/views/dashboards/crm/CrmTable'
@@ -24,72 +23,34 @@ import CrmProjectTimeline from 'src/views/dashboards/crm/CrmProjectTimeline'
 import CrmMeetingSchedule from 'src/views/dashboards/crm/CrmMeetingSchedule'
 import CrmSocialNetworkVisits from 'src/views/dashboards/crm/CrmSocialNetworkVisits'
 import CrmMostSalesInCountries from 'src/views/dashboards/crm/CrmMostSalesInCountries'
+import CardAppleWatch from 'src/views/ui/cards/basic/CardAppleWatch'
+import CoursePreviewCard from 'src/views/ui/cards/basic/CardCurse-'
+import { courses } from 'src/mocks/courses'
 
 const CrmDashboard = () => {
+  
   return (
     <ApexChartWrapper>
+      
       <Grid container spacing={6} className='match-height'>
-        <Grid item xs={12} md={4}>
-          <CrmAward />
-        </Grid>
-        <Grid item xs={6} sm={3} md={2}>
-          <CardStatisticsVertical
-            stats='155k'
-            color='primary'
-            trendNumber='+22%'
-            title='Total Orders'
-            chipText='Last 4 Month'
-            icon={<Icon icon='mdi:cart-plus' />}
-          />
-        </Grid>
-        <Grid item xs={6} sm={3} md={2}>
-          <CardStatisticsVertical
-            stats='$13.4k'
-            color='success'
-            trendNumber='+38%'
-            title='Total Sales'
-            chipText='Last Six Month'
-            icon={<Icon icon='mdi:currency-usd' />}
-          />
-        </Grid>
-        <Grid item xs={6} sm={3} md={2}>
-          <CrmTotalProfit />
-        </Grid>
-        <Grid item xs={6} sm={3} md={2}>
-          <CrmTotalGrowth />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <CrmOrganicSessions />
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <CrmProjectTimeline />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <CrmWeeklyOverview />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <CrmSocialNetworkVisits />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <CrmMonthlyBudget />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <CrmMeetingSchedule />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <CrmExternalLinks />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <CrmPaymentHistory />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <CrmMostSalesInCountries />
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <CrmTable />
-        </Grid>
+    <div>
+      <h1>Ultimos Cursos</h1>
+      <Grid container justify-content="start" spacing={4} flex-direction="column" align-items="stretch">
+        {courses.map((course) => (
+          <Grid item xs={12} sm={12} md={6} lg={4} key={course.id}>
+            <CoursePreviewCard
+              title={course.title}
+              category={course.category}
+              description={course.description}
+              image={course.image} 
+              courseId={course.id}           />
+          </Grid>
+        ))}
+      </Grid>
+    </div>
       </Grid>
     </ApexChartWrapper>
+
   )
 }
 
