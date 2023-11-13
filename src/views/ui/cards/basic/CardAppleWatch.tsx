@@ -11,15 +11,15 @@ const CardAppleWatch = () => {
       <CardMedia sx={{ height: 140 }} image='/images/cards/apple-watch.png' />
       <CardContent sx={{ p: theme => `${theme.spacing(4, 5)} !important` }}>
         <Typography variant='h6' sx={{ mb: 2 }}>
-          Apple Watch
+          Titulo Curso
         </Typography>
-        <Typography sx={{ mb: 2 }}>$249.40</Typography>
+        <Typography sx={{ mb: 2 }}>Categoria del Curso</Typography>
         <Typography variant='body2'>
-          3.1GHz 6-core 10th-generation Intel Core i5 processor, Turbo Boost up to 4.5GHz
+          Breve descripcion del curso
         </Typography>
       </CardContent>
       <Button size='large' variant='contained' sx={{ width: '100%', borderTopLeftRadius: 0, borderTopRightRadius: 0 }}>
-        Add To Cart
+        Ver Curso
       </Button>
     </Card>
   )

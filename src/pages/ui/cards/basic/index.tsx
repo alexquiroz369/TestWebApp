@@ -23,7 +23,7 @@ const CardBasic = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <Typography variant='h5'>Basic Cards</Typography>
+        <Typography variant='h5'>Basic Cards?</Typography>
       </Grid>
       <Grid item xs={12} sm={6} md={4}>
         <CardImgTop />
