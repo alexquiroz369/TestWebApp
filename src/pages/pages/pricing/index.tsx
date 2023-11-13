@@ -1,76 +1,130 @@
-// ** React Imports
-import { useState, ChangeEvent } from 'react'
+import {
+  Container,
+  Typography,
+  Grid,
+  Card,
+  CardMedia,
+  List,
+  ListItem,
+  ListItemText,
+  Button,
+  Collapse,
+  ListItemButton,
+  ListItemIcon,
+  ListSubheader,
+} from "@mui/material";
 
-// ** Next Imports
-import { GetStaticProps, InferGetStaticPropsType } from 'next/types'
+import React, { useState } from "react";
+import ReactPlayer from "react-player";
 
-// ** MUI Imports
-import Card from '@mui/material/Card'
-import { styled } from '@mui/material/styles'
-import MuiCardContent, { CardContentProps } from '@mui/material/CardContent'
+const CoursePage = () => {
+  const [open, setOpen] = React.useState(true);
+  const handleClick = () => {
+    setOpen(!open);
+  };
 
-// ** Third Party Imports
-import axios from 'axios'
+  const course = {
+    title: "Curso de React",
+    description: "Este curso te enseñará a crear aplicaciones web con React.",
+    image: "/images/banners/banner-1.jpg",
+    sections: [
+      {
+        title: "Introducción",
+        videos: [
+          {
+            id: 1,
+            title: "Introducción a React",
+            description: "Este video te enseñará los conceptos básicos de React.",
+            url: "https://res.cloudinary.com/dw5wd0zkt/video/upload/v1699679814/wqvtrskflc739p2z6do4.mp4",
+          },
+        ],
+      },
+      {
+        title: "Componentes",
+        videos: [
+          {
+            id: 2,
+            title: "Componentes de React",
+            description: "Este video te enseñará a crear y utilizar componentes de React.",
+            url: "https://res.cloudinary.com/dw5wd0zkt/video/upload/v1699683868/ITA_-_How_could_this_happen_to_banana_Joe_zg31ju.mp4",
+          },
+        ],
+      },
+    ],
+  };
+  const [videoState, setVideoState] = useState(course.sections[0].videos[0].url);
 
-// ** Types
-import { PricingDataType } from 'src/@core/components/plan-details/types'
-
-// ** Demo Imports
-import PricingCTA from 'src/views/pages/pricing/PricingCTA'
-import PricingTable from 'src/views/pages/pricing/PricingTable'
-import PricingPlans from 'src/views/pages/pricing/PricingPlans'
-import PricingHeader from 'src/views/pages/pricing/PricingHeader'
-import PricingFooter from 'src/views/pages/pricing/PricingFooter'
-
-// ** Styled Components
-const CardContent = styled(MuiCardContent)<CardContentProps>(({ theme }) => ({
-  padding: `${theme.spacing(20, 36)} !important`,
-  [theme.breakpoints.down('xl')]: {
-    padding: `${theme.spacing(20)} !important`
-  },
-  [theme.breakpoints.down('sm')]: {
-    padding: `${theme.spacing(10, 5)} !important`
-  }
-}))
-
-const Pricing = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  // ** States
-  const [plan, setPlan] = useState<'monthly' | 'annually'>('annually')
-
-  const handleChange = (e: ChangeEvent<{ checked: boolean }>) => {
-    if (e.target.checked) {
-      setPlan('annually')
-    } else {
-      setPlan('monthly')
-    }
-  }
+  const handleClickOpen = () => {
+    // Recarga la página con la URL del video seleccionado
+    window.location.href = videoState;
+  };
 
   return (
-    <Card>
-      <CardContent>
-        <PricingHeader plan={plan} handleChange={handleChange} />
-        <PricingPlans plan={plan} data={apiData.pricingPlans} />
-      </CardContent>
-      <PricingCTA />
-      <CardContent>
-        <PricingTable data={apiData} />
-      </CardContent>
-      <CardContent sx={{ backgroundColor: 'action.hover' }}>
-        <PricingFooter data={apiData} />
-      </CardContent>
-    </Card>
-  )
-}
+    <Container>
+      <Grid marginBottom={4} item xs={12} md={12}>
+        <Card>
+          <Typography padding={4} variant="h3">
+            {course.title}
+          </Typography>
+        </Card>
+      </Grid>
 
-export const getStaticProps: GetStaticProps = async () => {
-  const res = await axios.get('/pages/pricing')
-  const apiData: PricingDataType = res.data
+      <Grid container spacing={6}>
+        <Grid item xs={12} md={12}>
+          <ReactPlayer
+            url={videoState}
+            controls={true}
+            width={"100%"}
+            height={"550px"}
+          />
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <Typography paddingBottom={4} variant="h4">
+            Contenido del Curso
+          </Typography>
+        </Grid>
+      </Grid>
 
-  return {
-    props: {
-      apiData
-    }
-  }
-}
+      <Grid item xs={12} md={12}>
+        <List
+          sx={{ width: '100%', bgcolor: 'background.paper' }}
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+          subheader={
+            <ListSubheader component="div" id="nested-list-subheader">
+              Secciones
+            </ListSubheader>
+          }
+        >
+          {course.sections.map((section) => (
 
-export default Pricing
+            <Grid>
+              <Grid>
+                <ListItemButton key={section.title} >
+                  <ListItemText primary={section.title + ':'} onClick={handleClick} />
+                </ListItemButton>
+              </Grid>
+              <Collapse in={open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding >
+                  {section.videos.map((video) => (
+                    <ListItemButton sx={{ pl: 4 }} key={video.id}>
+                      <ListItemText
+                        secondary={`- ${video.title}`}
+                        onClick={() => {
+                          setVideoState(video.url);
+                          handleClickOpen;
+                        }}
+                      />
+                    </ListItemButton>
+                  ))}
+                </List>
+              </Collapse>
+            </Grid>
+          ))}
+        </List>
+      </Grid>
+    </Container>
+  );
+};
+
+export default CoursePage;
