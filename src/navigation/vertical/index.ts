@@ -10,7 +10,7 @@ const navigation = (): VerticalNavItemsType => {
       badgeColor: 'error',
       children: [
         {
-          title: 'CRM',
+          title: 'Inicio',
           path: '/dashboards/crm'
         },
         {

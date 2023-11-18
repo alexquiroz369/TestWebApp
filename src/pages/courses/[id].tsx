@@ -67,7 +67,9 @@ export default function Course() {
                         </Grid>
                     </Grid>
                 </CardContent>
-                <Button size='large' variant='contained' sx={{ width: '100%', borderTopLeftRadius: 0, borderTopRightRadius: 0 }}>
+                <Button onClick={() => {
+                    router.push("/player/videoplayer?id=" + course.id);
+                }} size='large' variant='contained' sx={{ width: '100%', borderTopLeftRadius: 0, borderTopRightRadius: 0 }}>
                     Reproducir Curso
                 </Button>
             </Card>

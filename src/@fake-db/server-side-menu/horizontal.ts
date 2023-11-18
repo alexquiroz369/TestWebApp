@@ -11,7 +11,7 @@ const navigation: HorizontalNavItemsType = [
     children: [
       {
         icon: 'mdi:chart-donut',
-        title: 'CRM',
+        title: 'Inicio',
         path: '/dashboards/crm'
       },
       {
