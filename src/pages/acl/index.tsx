@@ -19,10 +19,10 @@ const ACLPage = () => {
     <Grid container spacing={6}>
       <Grid item md={6} xs={12}>
         <Card>
-          <CardHeader title='Common' />
+          <CardHeader title='Bienvenido Administrador!!' />
           <CardContent>
-            <Typography sx={{ mb: 4 }}>No ability is required to view this card</Typography>
-            <Typography sx={{ color: 'primary.main' }}>This card is visible to 'user' and 'admin' both</Typography>
+            <Typography sx={{ mb: 4 }}>Informacion para el Administrador</Typography>
+            <Typography sx={{ color: 'primary.main' }}>Este apartado contiene informacion del administrador sobre el sistema o los usuarios</Typography>
           </CardContent>
         </Card>
       </Grid>

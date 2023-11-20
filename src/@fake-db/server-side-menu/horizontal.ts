@@ -596,7 +596,7 @@ const navigation: HorizontalNavItemsType = [
         action: 'read',
         subject: 'acl-page',
         icon: 'mdi:shield-outline',
-        title: 'Access Control'
+        title: 'Lista de control'
       },
       {
         title: 'Menu Levels',

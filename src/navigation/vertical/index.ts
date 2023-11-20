@@ -572,11 +572,25 @@ const navigation = (): VerticalNavItemsType => {
       ]
     },
     {
+      path: '/createcourses',
+      action: 'read',
+      subject: 'acl-page',
+      icon: 'mdi:cube-outline',
+      title: 'Agregar Curso'
+    },
+    {
       path: '/acl',
       action: 'read',
       subject: 'acl-page',
-      icon: 'mdi:shield-outline',
-      title: 'Access Control'
+      icon: 'mdi:file-document-outline',
+      title: 'Modificar Curso'
+    },
+    {
+      path: '/acl',
+      action: 'read',
+      subject: 'acl-page',
+      icon: 'mdi:home-outline',
+      title: 'Informacion de usuarios'
     },
     {
       title: 'Others',
