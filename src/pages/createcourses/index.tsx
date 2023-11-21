@@ -7,9 +7,12 @@ import StepperAlternativeLabel from 'src/views/forms/form-wizard/StepperAlternat
 import StepperVerticalWithNumbers from 'src/views/forms/form-wizard/StepperVerticalWithNumbers'
 import StepperLinearWithValidation from 'src/views/forms/form-wizard/StepperLinearWithValidation'
 import StepperVerticalWithoutNumbers from 'src/views/forms/form-wizard/StepperVerticalWithoutNumbers'
+import { useContext } from 'react'
+import { AbilityContext } from 'src/layouts/components/acl/Can'
 
 const CreateCourses = () => {
-
+  const ability = useContext(AbilityContext);
+  
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
@@ -33,5 +36,9 @@ const CreateCourses = () => {
     </Grid>
   )
 }
+CreateCourses.acl = {
+  action: 'read',
+  subject: 'create-courses'
+};
 
 export default CreateCourses
