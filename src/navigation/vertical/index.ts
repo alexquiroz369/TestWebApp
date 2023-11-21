@@ -1,638 +1,330 @@
 // ** Type import
-import { VerticalNavItemsType } from 'src/@core/layouts/types'
+import { useEffect, useState } from 'react';
+import { VerticalNavItemsType } from 'src/@core/layouts/types';
+import axios, { AxiosResponse } from 'axios';
+
+interface Pagination {
+  page: number;
+  pageSize: number;
+  pageCount: number;
+  total: number;
+}
+
+interface MateriaAttributes {
+  id: number;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
+interface Materia {
+  id: number;
+  attributes: MateriaAttributes;
+}
+
+interface CursoAttributes {
+  id: number;
+  title: string;
+  section: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  materias: {
+    data: Materia[];
+  };
+  cursos_uni: {
+    data: any; // Ajusta este tipo según la estructura real de datos para cursos_uni
+  };
+}
+
+interface Curso {
+  id: number;
+  attributes: CursoAttributes;
+}
+
+interface ApiResponse {
+  data: Curso[];
+  meta: {
+    pagination: Pagination;
+  };
+}
 
 const navigation = (): VerticalNavItemsType => {
+  const [cursos, setCursos] = useState<Curso[] | null>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response: AxiosResponse<ApiResponse> = await axios.get('http://3.83.228.77/api/cursos?populate=*');
+        const dataFromApi = response.data.data;
+        setCursos(dataFromApi);
+        console.log(dataFromApi);
+        console.log('hola');
+        
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // return cursos?.map((curso) => {
+  //   if (curso.attributes.section === 'cursos regulares') {
+  //     return {
+  //       title: 'Cursos Regulares',
+  //       icon: 'mdi:home-outline',
+  //       badgeContent: 'new',
+  //       children: [
+  //         {
+  //           title: curso.attributes.title,
+  //           path: `/dashboards/${curso.id}`,
+  //         },
+  //       ],
+  //     }
+  //   }
+  //   if (curso.attributes.section === 'pre universitarios') {
+  //     return {
+  //         title: 'Pre universitarios',
+  //         icon: 'mdi:home-outline',
+  //         children: [
+  //           {
+  //             title: curso.attributes.title,
+  //             path: `/dashboards/${curso.id}`,
+  //           },
+  //         ],
+  //       }
+  //   }
+  // },
+  // );
   return [
     {
-      title: 'Dashboards',
+      title: 'Menu',
       icon: 'mdi:home-outline',
-      badgeContent: 'new',
-      badgeColor: 'error',
+      //badgeContent: 'new',
       children: [
         {
           title: 'Inicio',
           path: '/dashboards/crm'
         },
         {
-          title: 'Analytics',
+          title: 'Quienes Somos',
           path: '/dashboards/analytics'
         },
+      ]
+    },
+    {
+      sectionTitle: 'Cursos Regulares'
+    },
+    {
+      title: 'Sexto de secundaria',
+      icon: 'mdi:ruler',
+      children: [
         {
-          title: 'eCommerce',
-          path: '/dashboards/ecommerce'
+          title: 'Matematicas',
+          path: '/courses/5'
+        },
+        {
+          title: 'Literatura',
+          path: '/courses/2'
+        },
+        {
+          title: 'Fisica',
+          path: '/courses/3'
+        },
+        {
+          title: 'Quimica',
+          path: '/courses/4'
         }
       ]
     },
     {
-      sectionTitle: 'Apps & Pages'
-    },
-    {
-      title: 'Email',
-      icon: 'mdi:email-outline',
-      path: '/apps/email'
-    },
-    {
-      title: 'Chat',
-      icon: 'mdi:message-outline',
-      path: '/apps/chat'
-    },
-    {
-      title: 'Calendar',
-      icon: 'mdi:calendar-blank-outline',
-      path: '/apps/calendar'
-    },
-    {
-      title: 'Invoice',
-      icon: 'mdi:file-document-outline',
+      title: 'Quinto de secundaria',
+      icon: 'mdi:ruler',
       children: [
         {
-          title: 'List',
-          path: '/apps/invoice/list'
+          title: 'Matematicas',
+          path: '/courses/8'
         },
         {
-          title: 'Preview',
-          path: '/apps/invoice/preview'
+          title: 'Literatura',
+          path: '/courses/9'
         },
         {
-          title: 'Edit',
-          path: '/apps/invoice/edit'
+          title: 'Fisica',
+          path: '/courses/10'
         },
         {
-          title: 'Add',
-          path: '/apps/invoice/add'
+          title: 'Quimica',
+          path: '/courses/11'
         }
       ]
     },
     {
-      title: 'User',
-      icon: 'mdi:account-outline',
+      title: 'Tercero de secundaria',
+      icon: 'mdi:ruler',
       children: [
         {
-          title: 'List',
-          path: '/apps/user/list'
+          title: 'Matematicas',
+          path: '/courses/12'
         },
         {
-          title: 'View',
-          children: [
-            {
-              title: 'Overview',
-              path: '/apps/user/view/overview'
-            },
-            {
-              title: 'Security',
-              path: '/apps/user/view/security'
-            },
-            {
-              title: 'Billing & Plans',
-              path: '/apps/user/view/billing-plan'
-            },
-            {
-              title: 'Notifications',
-              path: '/apps/user/view/notification'
-            },
-            {
-              title: 'Connection',
-              path: '/apps/user/view/connection'
-            }
-          ]
+          title: 'Literatura',
+          path: '/courses/13'
+        },
+        {
+          title: 'Fisica',
+          path: '/courses/14'
+        },
+        {
+          title: 'Quimica',
+          path: '/courses/15'
         }
       ]
     },
     {
-      title: 'Roles & Permissions',
-      icon: 'mdi:shield-outline',
+      sectionTitle: 'Cursos Preuniversitarios'
+    },
+    {
+      title: 'UATF',
+      icon: 'mdi:school',
       children: [
         {
-          title: 'Roles',
-          path: '/apps/roles'
-        },
-        {
-          title: 'Permissions',
-          path: '/apps/permissions'
-        }
-      ]
-    },
-    {
-      title: 'Pages',
-      icon: 'mdi:file-document-outline',
-      children: [
-        {
-          title: 'User Profile',
+          title: 'Ingenieria de sistemas',
+          icon: 'mdi:math-integral-box',
           children: [
             {
-              title: 'Profile',
-              path: '/pages/user-profile/profile'
+              title: 'Programacion',
+              path: '/courses/16'
             },
             {
-              title: 'Teams',
-              path: '/pages/user-profile/teams'
+              title: 'Calculo',
+              path: '/courses/17'
             },
             {
-              title: 'Projects',
-              path: '/pages/user-profile/projects'
+              title: 'Estadistica',
+              path: '/courses/18'
             },
             {
-              title: 'Connections',
-              path: '/pages/user-profile/connections'
+              title: 'Fisica',
+              path: '/courses/19'
             }
           ]
         },
         {
-          title: 'Account Settings',
+          title: 'Medicina',
+          icon: 'mdi:math-integral-box',
           children: [
             {
-              title: 'Account',
-              path: '/pages/account-settings/account'
+              title: 'Anatomia',
+              path: '/courses/20'
             },
             {
-              title: 'Security',
-              path: '/pages/account-settings/security'
+              title: 'Biologia',
+              path: '/courses/21'
             },
             {
-              title: 'Billing',
-              path: '/pages/account-settings/billing'
-            },
-            {
-              title: 'Notifications',
-              path: '/pages/account-settings/notifications'
-            },
-
-            {
-              title: 'Connections',
-              path: '/pages/account-settings/connections'
+              title: 'Estadistica',
+              path: '/courses/22'
             }
           ]
         },
         {
-          title: 'FAQ',
-          path: '/pages/faq'
-        },
-        {
-          title: 'Help Center',
-          path: '/pages/help-center'
-        },
-        {
-          title: 'Pricing',
-          path: '/pages/pricing'
-        },
-        {
-          title: 'Miscellaneous',
+          title: 'Administracion de empresas',
+          icon: 'mdi:math-integral-box',
           children: [
             {
-              openInNewTab: true,
-              title: 'Coming Soon',
-              path: '/pages/misc/coming-soon'
+              title: 'Matematicas',
+              path: '/courses/23'
             },
             {
-              openInNewTab: true,
-              title: 'Under Maintenance',
-              path: '/pages/misc/under-maintenance'
+              title: 'Literatura',
+              path: '/courses/24'
             },
             {
-              openInNewTab: true,
-              title: 'Page Not Found - 404',
-              path: '/pages/misc/404-not-found'
+              title: 'Calculo',
+              path: '/courses/25'
             },
             {
-              openInNewTab: true,
-              title: 'Not Authorized - 401',
-              path: '/pages/misc/401-not-authorized'
-            },
-            {
-              openInNewTab: true,
-              title: 'Server Error - 500',
-              path: '/pages/misc/500-server-error'
+              title: 'Contabilidad',
+              path: '/courses/26'
             }
           ]
-        }
-      ]
-    },
-    {
-      title: 'Auth Pages',
-      icon: 'mdi:lock-outline',
-      children: [
-        {
-          title: 'Login',
-          children: [
-            {
-              openInNewTab: true,
-              title: 'Login v1',
-              path: '/pages/auth/login-v1'
-            },
-            {
-              openInNewTab: true,
-              title: 'Login v2',
-              path: '/pages/auth/login-v2'
-            },
-            {
-              openInNewTab: true,
-              title: 'Login With AppBar',
-              path: '/pages/auth/login-with-appbar'
-            }
-          ]
-        },
-        {
-          title: 'Register',
-          children: [
-            {
-              openInNewTab: true,
-              title: 'Register v1',
-              path: '/pages/auth/register-v1'
-            },
-            {
-              openInNewTab: true,
-              title: 'Register v2',
-              path: '/pages/auth/register-v2'
-            },
-            {
-              openInNewTab: true,
-              title: 'Register Multi-Steps',
-              path: '/pages/auth/register-multi-steps'
-            }
-          ]
-        },
-        {
-          title: 'Verify Email',
-          children: [
-            {
-              openInNewTab: true,
-              title: 'Verify Email v1',
-              path: '/pages/auth/verify-email-v1'
-            },
-            {
-              openInNewTab: true,
-              title: 'Verify Email v2',
-              path: '/pages/auth/verify-email-v2'
-            }
-          ]
-        },
-        {
-          title: 'Forgot Password',
-          children: [
-            {
-              openInNewTab: true,
-              title: 'Forgot Password v1',
-              path: '/pages/auth/forgot-password-v1'
-            },
-            {
-              openInNewTab: true,
-              title: 'Forgot Password v2',
-              path: '/pages/auth/forgot-password-v2'
-            }
-          ]
-        },
-        {
-          title: 'Reset Password',
-          children: [
-            {
-              openInNewTab: true,
-              title: 'Reset Password v1',
-              path: '/pages/auth/reset-password-v1'
-            },
-            {
-              openInNewTab: true,
-              title: 'Reset Password v2',
-              path: '/pages/auth/reset-password-v2'
-            }
-          ]
-        },
-        {
-          title: 'Two Steps',
-          children: [
-            {
-              openInNewTab: true,
-              title: 'Two Steps v1',
-              path: '/pages/auth/two-steps-v1'
-            },
-            {
-              openInNewTab: true,
-              title: 'Two Steps v2',
-              path: '/pages/auth/two-steps-v2'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      title: 'Wizard Examples',
-      icon: 'mdi:transit-connection-horizontal',
-      children: [
-        {
-          title: 'Checkout',
-          path: '/pages/wizard-examples/checkout'
-        },
-        {
-          title: 'Property Listing',
-          path: '/pages/wizard-examples/property-listing'
-        },
-        {
-          title: 'Create Deal',
-          path: '/pages/wizard-examples/create-deal'
-        }
-      ]
-    },
-    {
-      icon: 'mdi:vector-arrange-below',
-      title: 'Dialog Examples',
-      path: '/pages/dialog-examples'
-    },
-    {
-      sectionTitle: 'User Interface'
-    },
-    {
-      title: 'Typography',
-      icon: 'mdi:format-letter-case',
-      path: '/ui/typography'
-    },
-    {
-      title: 'Icons',
-      path: '/ui/icons',
-      icon: 'mdi:google-circles-extended'
-    },
-    {
-      
-      title: 'Cards',
-      icon: 'mdi:credit-card-outline',
-      children: [
-        {
-          title: 'Basic',
-          path: '/ui/cards/basic'
-        },
-        {
-          title: 'Advanced',
-          path: '/ui/cards/advanced'
-        },
-        {
-          title: 'Statistics',
-          path: '/ui/cards/statistics'
-        },
-        {
-          title: 'Widgets',
-          path: '/ui/cards/widgets'
-        },
-        {
-          title: 'Gamification',
-          path: '/ui/cards/gamification'
-        },
-        {
-          title: 'Actions',
-          path: '/ui/cards/actions'
-        }
-      ]
-    },
-    {
-      badgeContent: '18',
-      title: 'Components',
-      icon: 'mdi:archive-outline',
-      badgeColor: 'primary',
-      children: [
-        {
-          title: 'Accordion',
-          path: '/components/accordion'
-        },
-        {
-          title: 'Alerts',
-          path: '/components/alerts'
-        },
-        {
-          title: 'Avatars',
-          path: '/components/avatars'
-        },
-        {
-          title: 'Badges',
-          path: '/components/badges'
-        },
-        {
-          title: 'Buttons',
-          path: '/components/buttons'
-        },
-        {
-          title: 'Button Group',
-          path: '/components/button-group'
-        },
-        {
-          title: 'Chips',
-          path: '/components/chips'
-        },
-        {
-          title: 'Dialogs',
-          path: '/components/dialogs'
-        },
-        {
-          title: 'List',
-          path: '/components/list'
-        },
-        {
-          title: 'Menu',
-          path: '/components/menu'
-        },
-        {
-          title: 'Pagination',
-          path: '/components/pagination'
-        },
-        {
-          title: 'Ratings',
-          path: '/components/ratings'
-        },
-        {
-          title: 'Snackbar',
-          path: '/components/snackbar'
-        },
-        {
-          title: 'Swiper',
-          path: '/components/swiper'
-        },
-        {
-          title: 'Tabs',
-          path: '/components/tabs'
-        },
-        {
-          title: 'Timeline',
-          path: '/components/timeline'
-        },
-        {
-          title: 'Toasts',
-          path: '/components/toast'
-        },
-        {
-          title: 'Tree View',
-          path: '/components/tree-view'
-        },
-        {
-          title: 'More',
-          path: '/components/more'
         },
       ]
     },
     {
-      sectionTitle: 'Forms & Tables'
+      sectionTitle: 'Simulacros'
     },
     {
-      title: 'Form Elements',
-      icon: 'mdi:form-select',
+      title: 'UATF.',
+      icon: 'mdi:list-status',
       children: [
         {
-          title: 'Text Field',
-          path: '/forms/form-elements/text-field'
-        },
-        {
-          title: 'Select',
-          path: '/forms/form-elements/select'
-        },
-        {
-          title: 'Checkbox',
-          path: '/forms/form-elements/checkbox'
-        },
-        {
-          title: 'Radio',
-          path: '/forms/form-elements/radio'
-        },
-        {
-          title: 'Custom Inputs',
-          path: '/forms/form-elements/custom-inputs'
-        },
-        {
-          title: 'Textarea',
-          path: '/forms/form-elements/textarea'
-        },
-        {
-          title: 'Autocomplete',
-          path: '/forms/form-elements/autocomplete'
-        },
-        {
-          title: 'Date Pickers',
-          path: '/forms/form-elements/pickers'
-        },
-        {
-          title: 'Switch',
-          path: '/forms/form-elements/switch'
-        },
-        {
-          title: 'File Uploader',
-          path: '/forms/form-elements/file-uploader'
-        },
-        {
-          title: 'Editor',
-          path: '/forms/form-elements/editor'
-        },
-        {
-          title: 'Slider',
-          path: '/forms/form-elements/slider'
-        },
-        {
-          title: 'Input Mask',
-          path: '/forms/form-elements/input-mask'
-        },
-      ]
-    },
-    {
-      icon: 'mdi:cube-outline',
-      title: 'Form Layouts',
-      path: '/forms/form-layouts'
-    },
-    {
-      title: 'Form Validation',
-      path: '/forms/form-validation',
-      icon: 'mdi:checkbox-marked-circle-outline'
-    },
-    {
-      title: 'Form Wizard',
-      path: '/forms/form-wizard',
-      icon: 'mdi:transit-connection-horizontal'
-    },
-    {
-      title: 'Table',
-      icon: 'mdi:grid-large',
-      path: '/tables/mui'
-    },
-    {
-      title: 'Mui DataGrid',
-      icon: 'mdi:grid',
-      path: '/tables/data-grid'
-    },
-    {
-      sectionTitle: 'Charts & Misc'
-    },
-    {
-      title: 'Charts',
-      icon: 'mdi:chart-donut',
-      children: [
-        {
-          title: 'Apex',
-          path: '/charts/apex-charts'
-        },
-        {
-          title: 'Recharts',
-          path: '/charts/recharts'
-        },
-        {
-          title: 'ChartJS',
-          path: '/charts/chartjs'
-        }
-      ]
-    },
-    {
-      path: '/createcourses',
-      action: 'read',
-      subject: 'acl-page',
-      icon: 'mdi:cube-outline',
-      title: 'Agregar Curso'
-    },
-    {
-      path: '/acl',
-      action: 'read',
-      subject: 'acl-page',
-      icon: 'mdi:file-document-outline',
-      title: 'Modificar Curso'
-    },
-    {
-      path: '/acl',
-      action: 'read',
-      subject: 'acl-page',
-      icon: 'mdi:home-outline',
-      title: 'Informacion de usuarios'
-    },
-    {
-      title: 'Others',
-      icon: 'mdi:dots-horizontal',
-      children: [
-        {
-          title: 'Menu Levels',
+          title: 'Ingenieria de sistemas',
+          icon: 'mdi:math-integral-box',
           children: [
             {
-              title: 'Menu Level 2.1'
+              title: 'Programacion',
+              path: '/courses/27'
             },
             {
-              title: 'Menu Level 2.2',
-              children: [
-                {
-                  title: 'Menu Level 3.1'
-                },
-                {
-                  title: 'Menu Level 3.2'
-                }
-              ]
+              title: 'Calculo',
+              path: '/courses/28'
+            },
+            {
+              title: 'Estadistica',
+              path: '/courses/29'
+            },
+            {
+              title: 'Fisica',
+              path: '/courses/30'
             }
           ]
         },
         {
-          title: 'Disabled Menu',
-          disabled: true
+          title: 'Medicina',
+          icon: 'mdi:math-integral-box',
+          children: [
+            {
+              title: 'Anatomia',
+              path: '/courses/31'
+            },
+            {
+              title: 'Biologia',
+              path: '/courses/32'
+            },
+            {
+              title: 'Estadistica',
+              path: '/courses/33'
+            }
+          ]
         },
         {
-          title: 'Raise Support',
-          externalLink: true,
-          openInNewTab: true,
-          path: 'https://pixinvent.ticksy.com/'
+          title: 'Administracion de empresas',
+          icon: 'mdi:math-integral-box',
+          children: [
+            {
+              title: 'Matematicas',
+              path: '/courses/34'
+            },
+            {
+              title: 'Literatura',
+              path: '/courses/35'
+            },
+            {
+              title: 'Calculo',
+              path: '/courses/36'
+            },
+            {
+              title: 'Contabilidad',
+              path: '/courses/37'
+            }
+          ]
         },
-        {
-          title: 'Documentation',
-          externalLink: true,
-          openInNewTab: true,
-          path: 'https://pixinvent.com/demo/materialize-mui-react-nextjs-admin-template/documentation'
-        }
       ]
-    }
+    },
   ]
 }
 
