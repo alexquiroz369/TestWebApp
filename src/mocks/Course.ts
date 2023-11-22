@@ -11,6 +11,8 @@ export class Course {
   instructors: string[];
   content: Module[];
   duration: string;
+  rating: number;
+  pdFile: string;
 
   constructor(
     id: string,
@@ -18,6 +20,8 @@ export class Course {
     category: string,
     description: string,
     image: string,
+    rating:number,
+    pdFile: string,
     instructors: string[] = [],
     content: Module[] = [],
     duration: string = ""
@@ -27,6 +31,8 @@ export class Course {
     this.category = category;
     this.description = description;
     this.image = image;
+    this.rating = rating;
+    this.pdFile = pdFile;
     this.instructors = instructors;
     this.content = content;
     this.duration = duration;

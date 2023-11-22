@@ -12,6 +12,9 @@ import {
   ListItemButton,
   ListItemIcon,
   ListSubheader,
+  Box,
+  CardContent,
+  Link,
 } from "@mui/material";
 import { useRouter } from "next/router";
 import { relative } from "path";
@@ -37,6 +40,7 @@ const CoursePage = () => {
     title: "Curso de React",
     description: "Este curso te enseñará a crear aplicaciones web con React.",
     image: "/images/banners/banner-1.jpg",
+    pdFile: "https://www.africau.edu/images/default/sample.pdf",
     sections: [
       {
         title: "Introducción",
@@ -160,6 +164,21 @@ const CoursePage = () => {
           </Typography>
         </Card>
       </Grid>
+      <Box>
+        <h2>Material de Apoyo</h2>
+        <Card sx={{ boxShadow: 3 }}>
+          <CardContent>
+            <Link
+              href={course.pdFile}
+              download={course.title}
+              type="application/pdf"
+              target="_blank"
+            >
+              Descargar archivo
+            </Link>
+          </CardContent>
+        </Card>
+      </Box>
 
     </Container>
   );
