@@ -10,4 +10,5 @@ export type CourseStatsProps = {
   image: string;
   category: string;
   description: string;
+  value:number;
 };

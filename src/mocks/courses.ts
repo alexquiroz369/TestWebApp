@@ -6,6 +6,8 @@ export const courses: Course[]= [
     category: "Sexto de Secundaria",
     description: "Aprende Literatura",
     image: "/images/banners/banner-1.jpg",
+    rating: 3,
+    pdFile: "https://www.africau.edu/images/default/sample.pdf",
     instructors: ["María Pérez", "Pedro García"],
     content: [
       {
@@ -29,6 +31,8 @@ export const courses: Course[]= [
     category: "Sexto de Secundaria",
     description: "Aprende Literatura",
     image: "/images/banners/banner-2.jpg",
+    rating: 2,
+    pdFile: "https://www.africau.edu/images/default/sample.pdf",
     instructors: ["María Pérez", "Pedro García"],
     content: [
       {
@@ -52,6 +56,8 @@ export const courses: Course[]= [
     category: "Sexto de Secundaria",
     description: "Aprende Quimica",
     image: "/images/banners/banner-3.jpg",
+    rating: 5,
+    pdFile: "https://www.africau.edu/images/default/sample.pdf",
     instructors: ["María Pérez", "Pedro García"],
     content: [
       {
@@ -75,6 +81,8 @@ export const courses: Course[]= [
     category: "Sexto de Secundaria",
     description: "Aprende matematicas",
     image: "/images/banners/banner-5.jpg",
+    rating: 4,
+    pdFile: "https://www.africau.edu/images/default/sample.pdf",
     instructors: ["María Pérez", "Pedro García"],
     content: [
       {
