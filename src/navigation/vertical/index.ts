@@ -334,7 +334,7 @@ const navigation = (): VerticalNavItemsType => {
       title: 'Crear Nuevo Curso'
     },
     {
-      path: '/forms/form-layouts',
+      path: 'showCourses',
       action: 'read',
       subject: 'acl-page',
       icon: 'mdi:file-document-outline',

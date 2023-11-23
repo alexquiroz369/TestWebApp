@@ -13,19 +13,20 @@ import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 import FormCreateCourse from 'src/views/forms/form-layouts/FormLayoutCreateCourse'
 import { courses } from 'src/mocks/courses'
 import CoursePreviewCard from 'src/views/ui/cards/basic/CardCurse-'
+import FormEditCourse from 'src/views/forms/form-layouts/FormEditCourse'
 
-const CreateCourses = () => {
+const editCourse = () => {
   const ability = useContext(AbilityContext);
 
   return (
     <DatePickerWrapper>
-      <FormCreateCourse></FormCreateCourse>
+      <FormEditCourse></FormEditCourse>
     </DatePickerWrapper>
   )
 }
-CreateCourses.acl = {
+editCourse.acl = {
   action: 'read',
-  subject: 'create-courses'
+  subject: 'edit-courses'
 };
 
-export default CreateCourses
+export default editCourse

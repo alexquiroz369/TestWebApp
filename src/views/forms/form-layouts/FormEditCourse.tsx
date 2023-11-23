@@ -10,28 +10,21 @@ import MenuItem from '@mui/material/MenuItem'
 import TextField from '@mui/material/TextField'
 import CardHeader from '@mui/material/CardHeader'
 import InputLabel from '@mui/material/InputLabel'
-import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
 import FormControl from '@mui/material/FormControl'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import InputAdornment from '@mui/material/InputAdornment'
+
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 
-// ** Third Party Imports
-import DatePicker from 'react-datepicker'
+import { useRouter } from 'next/router'
+import { courses } from 'src/mocks/courses'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-
-const CustomInput = forwardRef((props, ref) => {
-    return <TextField fullWidth {...props} inputRef={ref} label='Birth Date' autoComplete='off' />
-})
-
-const FormCreateCourse = () => {
-
+const FormEditCourse = () => {
+    const router = useRouter()
+    const { courseId } = router.query;
+    const course = courses.find((course) => course.id === courseId);
+    
     const [image, setImage] = useState<File | null>(null);
     const [pdf, setPdf] = useState<File | null>(null);
     const tituloRef = useRef<HTMLInputElement>(null);
@@ -72,7 +65,7 @@ const FormCreateCourse = () => {
       
     return (
         <Card>
-            <CardHeader title='Crear un Nuevo Curso' />
+            <CardHeader title='Editar un Curso' />
             <Divider sx={{ m: '0 !important' }} />
             <form onSubmit={handleSubmit}>
                 <CardContent>
@@ -84,6 +77,7 @@ const FormCreateCourse = () => {
                         </Grid>
                         <Grid item xs={12} sm={12}>
                             <TextField fullWidth label='Titulo del Curso' placeholder='Curso de Fisica Basica'
+                                value={course?.title}
                                 required
                                 inputRef={tituloRef}
                                 inputProps={{
@@ -92,6 +86,7 @@ const FormCreateCourse = () => {
                         </Grid>
                         <Grid item xs={12} sm={12}>
                             <TextField fullWidth label='Descripcion' placeholder='En este curso aprenderas sobre fisica basica'
+                                value={course?.description}
                                 required
                                 inputRef={descripcionRef}
                                 inputProps={{
@@ -100,6 +95,7 @@ const FormCreateCourse = () => {
                         </Grid>
                         <Grid item xs={12} sm={12}>
                             <TextField fullWidth label='Instructor del Curso' placeholder='Prof. Gerardo XXX XXX'
+                                value={course?.instructors}
                                 inputRef={instructorRef}
                                 inputProps={{
                                     maxLength: 50,
@@ -107,6 +103,7 @@ const FormCreateCourse = () => {
                         </Grid>
                         <Grid item xs={12} sm={12}>
                             <TextField fullWidth label='Duracion' placeholder='2 horas y 30 minutos'
+                                value={course?.duration}
                                 required
                                 inputRef={duracionRef}
                                 inputProps={{
@@ -117,6 +114,7 @@ const FormCreateCourse = () => {
                             <FormControl fullWidth>
                                 <InputLabel id="form-layouts-separator-select-label">Categoria</InputLabel>
                                 <Select
+                                    value={course?.category}
                                     label="Nivel Educativo"
                                     defaultValue=""
                                     inputRef={categoriaRef}
@@ -206,4 +204,4 @@ const FormCreateCourse = () => {
         </Card>
     )
 }
-export default FormCreateCourse
+export default FormEditCourse
