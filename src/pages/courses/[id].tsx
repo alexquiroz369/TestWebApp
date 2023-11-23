@@ -12,7 +12,10 @@ import {
     CardContent,
     Icon,
     Button,
+    Rating,
+    Link, IconButton,
 } from "@mui/material";
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
 export default function Course() {
     const router = useRouter();
@@ -39,7 +42,7 @@ export default function Course() {
                 <CardContent>
                     <Grid container spacing={6}>
                         <Grid item xs={12} md={6}>
-                            <Typography variant="h3">
+                            <Typography variant="h3" textAlign={"center"}>
                                 {course.title}
                             </Typography>
                             <Typography variant="h6" style={{ fontWeight: 'bold' }}>
@@ -54,6 +57,10 @@ export default function Course() {
                             <Typography variant="body1">
                                 {course.description}
                             </Typography>
+                            <Typography variant="h6" style={{ fontWeight: 'bold' }}>
+                                Valoracion:
+                            </Typography>
+                            <Rating name="read-only" value={course.rating} readOnly />
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <CardMedia
@@ -100,6 +107,21 @@ export default function Course() {
 
                             ))}
                         </List>
+                    </CardContent>
+                </Card>
+            </Box>
+            <Box>
+                <h2>Material de Apoyo</h2>
+                <Card sx={{ boxShadow: 3 }}>
+                    <CardContent>
+                        <Link
+                            href={course.pdFile}
+                            download={course.title}
+                            type="application/pdf"
+                            target="_blank"
+                        >
+                            Descargar archivo
+                        </Link>
                     </CardContent>
                 </Card>
             </Box>
