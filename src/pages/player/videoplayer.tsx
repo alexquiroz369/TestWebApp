@@ -21,6 +21,7 @@ import { relative } from "path";
 
 import React, { useState } from "react";
 import ReactPlayer from "react-player";
+import { courses } from "src/mocks/courses";
 
 const CoursePage = () => {
   const [open, setOpen] = React.useState(true);
@@ -29,13 +30,14 @@ const CoursePage = () => {
   };
   const router = useRouter();
   const courseId = router.query.id;
+  const course = courses.find((course) => course.id === courseId);
   const [selectedSectionIndex, setSelectedSectionIndex] = useState(-1);
 
   const handleSelected = (index: React.SetStateAction<number>) => {
     setSelectedSectionIndex(index);
   };
 
-
+{/*
   const course = {
     title: "Curso de React",
     description: "Este curso te enseñará a crear aplicaciones web con React.",
@@ -77,8 +79,8 @@ const CoursePage = () => {
       },
 
     ],
-  };
-  const [videoState, setVideoState] = useState(course.sections[0].videos[0].url);
+  };*/}
+  const [videoState, setVideoState] = useState(course?.sections[0]?.videos[0]?.url || '');
 
   const handleClickOpen = () => {
     // Recarga la página con la URL del video seleccionado
@@ -89,8 +91,8 @@ const CoursePage = () => {
     <Container>
       <Grid marginBottom={4} item xs={12} md={12}>
         <Card>
-          <Typography padding={4} variant="h3">
-            {course.title}
+        <Typography padding={4} variant="h3">
+            {course?.title || ''}
           </Typography>
         </Card>
       </Grid>
@@ -118,7 +120,7 @@ const CoursePage = () => {
               </ListSubheader>
             }
           >
-            {course.sections.map((section, index) => (
+            {course?.sections.map((section, index) => (
               <Grid>
                 <Grid>
                   <ListItemButton
@@ -160,7 +162,7 @@ const CoursePage = () => {
             Acerca de este curso:
           </Typography>
           <Typography padding={4} variant="body1">
-            {course.description}
+            {course?.description}
           </Typography>
         </Card>
       </Grid>
@@ -169,8 +171,8 @@ const CoursePage = () => {
         <Card sx={{ boxShadow: 3 }}>
           <CardContent>
             <Link
-              href={course.pdFile}
-              download={course.title}
+              href={course?.pdFile}
+              download={course?.title}
               type="application/pdf"
               target="_blank"
             >

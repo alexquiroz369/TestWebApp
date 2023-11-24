@@ -1,3 +1,14 @@
+interface Section {
+  title: string;
+  videos: Video[];
+}
+
+interface Video {
+  id: number;
+  title: string;
+  description: string;
+  url: string;
+}
 interface Module {
   title: string;
   description: string;
@@ -13,6 +24,7 @@ export class Course {
   duration: string;
   rating: number;
   pdFile: string;
+  sections: Section[];
 
   constructor(
     id: string,
@@ -20,11 +32,12 @@ export class Course {
     category: string,
     description: string,
     image: string,
-    rating:number,
+    rating: number,
     pdFile: string,
     instructors: string[] = [],
     content: Module[] = [],
-    duration: string = ""
+    duration: string = "",
+    sections: Section[] = []
   ) {
     this.id = id;
     this.title = title;
@@ -36,5 +49,6 @@ export class Course {
     this.instructors = instructors;
     this.content = content;
     this.duration = duration;
+    this.sections = sections;
   }
 }
