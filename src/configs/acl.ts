@@ -26,6 +26,7 @@ const defineRulesFor = (role: string, subject: string) => {
     can(['read'], 'create-courses')
     can(['read'], 'show-courses')
     can(['read'], 'edit-courses')
+    can(['read'], 'FormMediaVideo')
 
   } else {
     can(['read', 'create', 'update', 'delete'], subject)

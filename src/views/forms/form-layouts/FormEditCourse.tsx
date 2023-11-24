@@ -20,11 +20,12 @@ import Select, { SelectChangeEvent } from '@mui/material/Select'
 import { useRouter } from 'next/router'
 import { courses } from 'src/mocks/courses'
 
+
 const FormEditCourse = () => {
     const router = useRouter()
     const { courseId } = router.query;
     const course = courses.find((course) => course.id === courseId);
-    
+
     const [image, setImage] = useState<File | null>(null);
     const [pdf, setPdf] = useState<File | null>(null);
     const tituloRef = useRef<HTMLInputElement>(null);
@@ -32,7 +33,7 @@ const FormEditCourse = () => {
     const instructorRef = useRef<HTMLInputElement>(null);
     const duracionRef = useRef<HTMLInputElement>(null);
     const categoriaRef = useRef<HTMLSelectElement>(null);
-    
+
     const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
             const file = event.target.files[0];
@@ -49,24 +50,29 @@ const FormEditCourse = () => {
     };
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-      
+
         const data = {
-          titulo: tituloRef.current?.value,
-          descripcion: descripcionRef.current?.value,
-          instructor: instructorRef.current?.value,
-          duracion: duracionRef.current?.value,
-          categoria: categoriaRef.current?.value,
-          image,
-          pdf,
+            titulo: tituloRef.current?.value,
+            descripcion: descripcionRef.current?.value,
+            instructor: instructorRef.current?.value,
+            duracion: duracionRef.current?.value,
+            categoria: categoriaRef.current?.value,
+            image,
+            pdf,
         };
-      
+
         console.log(JSON.stringify(data));
-      };
-      
+    };
+    function handleClick() {
+        router.push(`/AddMedia?courseId=${courseId}`);
+        //alert(`El valor enviado es ${id}`)
+    }
+
     return (
         <Card>
             <CardHeader title='Editar un Curso' />
             <Divider sx={{ m: '0 !important' }} />
+
             <form onSubmit={handleSubmit}>
                 <CardContent>
                     <Grid container spacing={5}>
@@ -194,14 +200,19 @@ const FormEditCourse = () => {
                 <Divider sx={{ m: '0 !important' }} />
                 <CardActions>
                     <Button size='large' type='submit' sx={{ mr: 2 }} variant='contained' >
-                        Enviar
+                        Actualizar
                     </Button>
                     <Button type='reset' size='large' color='secondary' variant='outlined'>
-                        Reset
+                        Limpiar
+                    </Button>
+                    <Button size='large' sx={{ mr: 2 }} variant='contained' onClick={handleClick}>
+                        Subir Videos
                     </Button>
                 </CardActions>
             </form>
+            <Divider sx={{ m: '0 !important' }} />
         </Card>
+
     )
 }
 export default FormEditCourse
