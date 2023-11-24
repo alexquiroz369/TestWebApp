@@ -63,8 +63,7 @@
       }
     }
   },
-  //Temp disable for Prod
-  "enabled":false,
+  "enabled": false,
   "overrides": [
     {
       "files": [

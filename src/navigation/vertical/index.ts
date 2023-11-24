@@ -115,6 +115,29 @@ const navigation = (): VerticalNavItemsType => {
       ]
     },
     {
+      path: 'createcourses',
+      action: 'read',
+      subject: 'acl-page',
+      icon: 'mdi:home-outline',
+      title: 'Crear Nuevo Curso'
+    },
+    {
+      path: 'showCourses',
+      action: 'read',
+      subject: 'acl-page',
+      icon: 'mdi:file-document-outline',
+      title: 'Actualizar un Curso'
+    },
+    {
+      path: '/acl',
+      action: 'read',
+      subject: 'acl-page',
+      icon: 'mdi:account-outline',
+      title: 'Ver Usuarios'
+    },
+
+
+    {
       sectionTitle: 'Cursos Regulares'
     },
     {
@@ -323,6 +346,7 @@ const navigation = (): VerticalNavItemsType => {
             }
           ]
         },
+        
       ]
     },
   ]
