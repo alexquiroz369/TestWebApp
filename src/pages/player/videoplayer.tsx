@@ -15,6 +15,7 @@ import {
   Box,
   CardContent,
   Link,
+  Avatar,
 } from "@mui/material";
 import { useRouter } from "next/router";
 import { relative } from "path";
@@ -37,7 +38,7 @@ const CoursePage = () => {
     setSelectedSectionIndex(index);
   };
 
-{/*
+  {/*
   const course = {
     title: "Curso de React",
     description: "Este curso te enseñará a crear aplicaciones web con React.",
@@ -91,7 +92,7 @@ const CoursePage = () => {
     <Container>
       <Grid marginBottom={4} item xs={12} md={12}>
         <Card>
-        <Typography padding={4} variant="h3">
+          <Typography padding={4} variant="h3">
             {course?.title || ''}
           </Typography>
         </Card>
@@ -170,14 +171,27 @@ const CoursePage = () => {
         <h2>Material de Apoyo</h2>
         <Card sx={{ boxShadow: 3 }}>
           <CardContent>
-            <Link
-              href={course?.pdFile}
-              download={course?.title}
-              type="application/pdf"
-              target="_blank"
-            >
-              Descargar archivo
-            </Link>
+            <Box display="flex" justifyContent="start">
+              <Avatar
+                src="/images/icons/file-icons/pdf.png"
+
+                onClick={() => {
+                  window.open(course?.pdFile, "_blank");
+                }}
+              />
+              <Link
+                href={course?.pdFile}
+                download={course?.title}
+                type="application/pdf"
+                target="_blank"
+                style={{
+                  paddingTop: "8px",
+                  paddingLeft: "10px"
+                }}
+              >
+                Descargar archivo
+              </Link>
+            </Box>
           </CardContent>
         </Card>
       </Box>

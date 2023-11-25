@@ -13,7 +13,7 @@ import {
     Icon,
     Button,
     Rating,
-    Link, IconButton,
+    Link, IconButton, Avatar,
 } from "@mui/material";
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
@@ -114,14 +114,27 @@ export default function Course() {
                 <h2>Material de Apoyo</h2>
                 <Card sx={{ boxShadow: 3 }}>
                     <CardContent>
-                        <Link
-                            href={course.pdFile}
-                            download={course.title}
-                            type="application/pdf"
-                            target="_blank"
-                        >
-                            Descargar archivo
-                        </Link>
+                        <Box display="flex" justifyContent="start">
+                            <Avatar
+                                src="/images/icons/file-icons/pdf.png"
+                                
+                                onClick={() => {
+                                    window.open(course.pdFile, "_blank");
+                                  }}
+                            />
+                            <Link
+                                href={course.pdFile}
+                                download={course.title}
+                                type="application/pdf"
+                                target="_blank"
+                                style={{
+                                    paddingTop: "8px",
+                                    paddingLeft:"10px"
+                                  }}  
+                            >
+                                Descargar archivo
+                            </Link>
+                        </Box>
                     </CardContent>
                 </Card>
             </Box>
